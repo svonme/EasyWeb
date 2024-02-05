@@ -28,7 +28,7 @@ func main() {
 
 	r := gin.Default()
 
-	r.LoadHTMLGlob(filepath.Join(conf.Template, "*"))
+	r.LoadHTMLGlob(filepath.Join(conf.Template, "**/*"))
 
 	template := html.Template(conf.Views)
 
