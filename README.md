@@ -1,6 +1,6 @@
 # 操作说明
 
-[Releases](/releases)
+[Releases](https://github.com/svonme/EasyWeb/releases)
 
 
 ## 修改配置文件
