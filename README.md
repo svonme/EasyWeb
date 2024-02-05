@@ -17,7 +17,7 @@
 
 ```
 
-### template
+### template [使用教程](https://www.topgoer.com/gin%E6%A1%86%E6%9E%B6/gin%E6%B8%B2%E6%9F%93/html%E6%A8%A1%E6%9D%BF%E6%B8%B2%E6%9F%93.html)
 
 配置公共文件, 比如配置统一的头部, 统一的尾部等内容。
 
