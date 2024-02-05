@@ -1,0 +1,15 @@
+# 忽略 idea 文件
+
+.idea
+
+# 忽略配置文件
+configs/
+
+# 忽略 bin 目录
+bin/
+
+# 忽略 logs 目录及其内容
+logs/*
+
+# 忽略静态文件
+web/
