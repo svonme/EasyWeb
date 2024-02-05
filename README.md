@@ -1,5 +1,8 @@
 # 操作说明
 
+[Releases](https://github.com/svonme/EasyWeb/releases/tag/v1.0)
+
+
 ## 修改配置文件
 
 编辑 config.json 文件中的配置参数, 如果没有则自行创建
@@ -14,14 +17,14 @@
 
 ```
 
-#### template
+### template
 
 配置公共文件, 比如配置统一的头部, 统一的尾部等内容。
 
-## views
+### views
 
 所有 html 文件
 
-## static
+### static
 
 除 html 文件外的资源文件, 比如 css, js 等文件
