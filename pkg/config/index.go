@@ -15,6 +15,10 @@ type Config struct {
 	Static string `json:"static"`
 	// 服务端口
 	Port string `json:"port"`
+	// 静态文件域名
+	Assets string `json:"assets"`
+	// 网站默认标题
+	Title string `json:"title"`
 }
 
 var _config *Config

@@ -1,19 +1,23 @@
 package html
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"html/template"
+	"log"
 	"net/http"
 	"path/filepath"
 	"strings"
+	"web/pkg/config"
 	"web/pkg/file"
 )
 
 type Data struct {
 	Title   string `json:"title"`
 	Layout  string `json:"layout"`
+	Assets  string `json:"assets"`
 	Content string
 }
 
@@ -45,6 +49,7 @@ func getConfig(text string) *Data {
 }
 
 func Template(templateName string) gin.HandlerFunc {
+	conf := config.Load()
 	return func(c *gin.Context) {
 		fileName := c.Request.URL.Path
 		if fileName == "/" || fileName == "index" {
@@ -63,10 +68,36 @@ func Template(templateName string) gin.HandlerFunc {
 		if len(text) > 0 {
 			data := getConfig(text)
 
-			c.HTML(http.StatusOK, data.Layout, gin.H{
+			if len(data.Title) < 1 {
+				data.Title = conf.Title
+			}
+
+			if len(data.Assets) < 1 {
+				data.Assets = conf.Assets
+			}
+
+			// 定义模板数据
+			htmlData := gin.H{
+				"assets": data.Assets,
+				"title":  data.Title,
+			}
+			// 创建新的模板对象并解析模板字符串
+			tmpl, err := template.New("").Parse(data.Content)
+			if err != nil {
+				log.Fatalf("Failed to parse template: %v", err)
+			}
+			// 使用缓冲区来捕获渲染结果
+			var buf bytes.Buffer
+			if err := tmpl.Execute(&buf, htmlData); err != nil {
+				log.Fatalf("Failed to execute template: %v", err)
+			}
+
+			res := gin.H{
+				"assets":  data.Assets,
 				"title":   data.Title,
-				"content": template.HTML(data.Content),
-			})
+				"content": template.HTML(buf.String()),
+			}
+			c.HTML(http.StatusOK, data.Layout, res)
 		} else {
 			// 返回响应
 			c.JSON(http.StatusNotFound, gin.H{
